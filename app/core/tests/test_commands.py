@@ -18,8 +18,8 @@ class CommandTests(SimpleTestCase):
         patched_check.assert_called_once_with(databases=['default'])
 
     @patch('time.sleep')
-    def test_for_db_delay(self, patched_sleep, patched_check):
-        patched_check.side_effects = [Psycopg2Error] * 2 + \
+    def test_wait_for_db_delay(self, patched_sleep, patched_check):
+        patched_check.side_effect = [Psycopg2Error] * 2 + \
             [OperationalError] * 3 + [True]
 
         call_command('wait_for_db')
